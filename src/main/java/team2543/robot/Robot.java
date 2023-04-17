@@ -7,6 +7,7 @@ package team2543.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import team2543.robot.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +20,8 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  Drive drive = new Drive();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -41,7 +44,10 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+
+    drive.readPeriodicInputs();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -72,6 +78,8 @@ public class Robot extends TimedRobot {
         // Put default auto code here
         break;
     }
+
+    drive.writePeriodicOutputs();
   }
 
   /** This function is called once when teleop is enabled. */
@@ -87,6 +95,8 @@ public class Robot extends TimedRobot {
     if ((elapseCycles % 50) == 0)
       System.out.println("teleopPeriodic: elapsed time = " + (elapseCycles * 0.02) + " seconds");
     elapseCycles++;
+
+    drive.writePeriodicOutputs();
   }
 
   /** This function is called once when the robot is disabled. */
