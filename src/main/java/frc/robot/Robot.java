@@ -29,6 +29,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    System.out.println("robotInit...done!");
   }
 
   /**
@@ -77,8 +79,15 @@ public class Robot extends TimedRobot {
   public void teleopInit() {}
 
   /** This function is called periodically during operator control. */
+  int elapseCycles = 0;
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // Since period is 20ms, we only want to print a message every second.
+    // Use the modulus operator (%) to print a message at every 50th period.
+    if ((elapseCycles % 50) == 0)
+      System.out.println("teleopPeriodic: elapsed time = " + (elapseCycles * 0.02) + " seconds");
+    elapseCycles++;
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
