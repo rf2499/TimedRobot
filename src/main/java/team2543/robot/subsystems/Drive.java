@@ -2,6 +2,7 @@ package team2543.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonFX;
+import team2543.robot.Global;
 
 public class Drive extends Subsystem {
 
@@ -26,7 +27,7 @@ public class Drive extends Subsystem {
     @Override
     public void readPeriodicInputs() {
         _steerDemand = joystick.getRawAxis(0);
-        _throttleDemand = joystick.getRawAxis(4) * -1;  // invert because forward is -1 and backward is 1
+        _throttleDemand = joystick.getRawAxis(3) * -1;  // invert because forward is -1 and backward is 1
         _slowMode = joystick.getRawButton(1);
         
     }
@@ -34,7 +35,7 @@ public class Drive extends Subsystem {
     @Override
     public void writePeriodicOutputs() {
         
-        double modifier = 1;    // 0 to 1
+        double modifier = Global.maxMotorPower;
 
         if (_slowMode) modifier /= 2;
 
